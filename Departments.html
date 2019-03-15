@@ -1,0 +1,74 @@
+<html>
+
+<head>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    
+    <link href="css/bootstrap.min.css">
+    
+    <script src="js/bootstrap.min.js"></script>
+    
+    <script src="js/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+</head>
+
+<body ng-app="AngularFirstApp">
+    <div ng-controller="EmployeeController">
+        <h2>Employees List</h2>
+        <div>
+            <div ng-model="EmployeeDetail">
+                <input type="text" ng-model="EmployeeDetail.EmpName" placeholder="Name" />
+                <select ng-model="EmployeeDetail.DeptID" ng-option="dept.DeptId for dept in Departments">
+                    <option ng-repeat="dept in Departments" value="{{dept.DeptId}}">{{dept.DeptName}}</option>
+                </select>
+                <input type="text" ng-model="EmployeeDetail.Address" placeholder="Address" />
+                <input type="text" ng-model="EmployeeDetail.Email" placeholder="Mail" />
+
+                <select>
+                    <option ng-selected="EmployeeDetail.Gender==true" value="true">Male</option>
+                    <option ng-selected="EmployeeDetail.Gender==false" value="false">Female</option>
+                </select>
+                <input type="text" ng-model="EmployeeDetail.YearOfBirth" />
+                <button value="create" ng-click="createEmployee()" ng-show="create">Submit</button>
+                <button value="update" ng-click="updateEmployee()" ng-show="update">Update</button>
+                <button value="cancel" ng-click="cancelEmployee()" ng-show="cancel">Cancel</button>
+            </div>
+        </div>
+        <table id="empTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Employee Name</td>
+                    <td>Department Name</td>
+                    <td>Address</td>
+                    <td>Email</td>
+                    <!-- <td>Date of join</td> -->
+                    <td>Gender</td>
+                    <td>Year of Birth</td>
+                    <td>Action</td>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr ng-repeat="emp in Employees">
+                            <td>{{emp.EmpName}}</td>
+                            <td>{{emp.Department.DeptName}}</td>
+                            <td>{{emp.Address}}</td>
+                            <td>{{emp.Email}}</td>
+                            <!-- <td>{{emp.DoJ}}</td> -->
+                            <td>{{(emp.Gender==true) ? "Male" : "Female"}}</td>
+                            <td>{{emp.YearOfBirth}}</td>
+                            <td>
+                                <button ng-click="edit(emp)">Edit</button>
+                                <button ng-click="delete(emp)">Delete</button>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <script src="AngularJS/Departments.js"></script>
+    
+
+</body>
+
+</html>
